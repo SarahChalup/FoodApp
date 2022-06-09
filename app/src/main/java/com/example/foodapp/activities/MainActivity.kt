@@ -1,11 +1,11 @@
-  package com.example.foodapp
+  package com.example.foodapp.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import com.example.foodapp.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
 
   class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
