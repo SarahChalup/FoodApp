@@ -17,7 +17,8 @@
             android:layout_height="match_parent"
             app:contentScrim="@color/purple_500"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            app:title="Meal Name">
+            app:title="Meal Name"
+            app:expandedTitleTextColor="@color/white">
 
 
             <ImageView
@@ -39,5 +40,96 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/favorites"
+        android:backgroundTint="@color/purple_200"
+        android:tint="@color/white"
+        app:layout_anchor="@id/ab_appbarMeal"
+        app:layout_anchorGravity="bottom|end"
+        android:layout_marginEnd="@dimen/_10sdp"
+        />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/ll_cat_area_lin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+                <TextView
+                    android:id="@+id/tv_mealcategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Category: Beef"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:drawableLeft="@drawable/categories"
+                    android:drawableTint="@color/black"
+                    android:layout_weight="1"
+                    />
+                <TextView
+                    android:id="@+id/tv_mealarea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Area: Chineese"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:drawableLeft="@drawable/ic_location"
+                    android:drawableTint="@color/black"
+                    android:layout_weight="1"
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_instrucion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Instruction"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_cat_area_lin"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:fontFamily="@font/myfont"
+                android:textStyle="bold"
+                android:textColor="@color/purple_700"
+                android:textSize="@dimen/_15ssp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_instrucion"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:fontFamily="@font/myfont"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10ssp"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/prog_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:layout_anchor="@id/ab_appbarMeal"
+        app:layout_anchorGravity="bottom"
+        android:visibility="gone"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

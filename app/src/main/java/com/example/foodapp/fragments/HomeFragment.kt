@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.foodapp.R
+import com.example.foodapp.activities.MainActivity
 import com.example.foodapp.activities.MealActivity
 import com.example.foodapp.databinding.FragmentHomeBinding
 import com.example.foodapp.pojo.Meal
@@ -25,11 +26,18 @@ class HomeFragment : Fragment() {
 
 private lateinit var binding:FragmentHomeBinding
 private lateinit var homeMvvm:HomeViewModel
+private lateinit var randomMeal:Meal
+
+companion object{
+    const val  MEAL_ID = "fcom.example.foodapp.fragments.idMeal"
+    const val  MEAL_NAME = "fcom.example.foodapp.fragments.nameMeal"
+    const val  MEAL_THUMB = "fcom.example.foodapp.fragments.thumbMeal"
+
+}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         homeMvvm = ViewModelProvider(this)[HomeViewModel::class.java]
-
 
     }
 
@@ -54,21 +62,24 @@ private lateinit var homeMvvm:HomeViewModel
     private fun onRandomMealClick() {
        binding.cvCarview.setOnClickListener {
            val intent = Intent(activity, MealActivity::class.java)
+
+           intent.putExtra(MEAL_ID, randomMeal.idMeal)
+            intent.putExtra(MEAL_NAME, randomMeal.strMeal)
+           intent.putExtra(MEAL_THUMB, randomMeal.strMealThumb)
            startActivity(intent)
        }
     }
 
     private fun observeRandomMeal() {
-        homeMvvm.observeRandomMealLiveData()
-            .observe(viewLifecycleOwner, object :Observer<Meal>{
-                override fun onChanged(t: Meal?) {
-                    Glide.with(this@HomeFragment)
-                        .load(t!!.strMealThumb)
-                        .into(binding.imgRandomMeal)
-                }
+        homeMvvm.observeRandomMealLiveData().observe(viewLifecycleOwner)
+        {
+            meal ->
+            Glide.with(this@HomeFragment)
+                .load(meal!!.strMealThumb)
+                .into(binding.imgRandomMeal)
 
-
-            })
+            this.randomMeal = meal
+        }
 
     }
 

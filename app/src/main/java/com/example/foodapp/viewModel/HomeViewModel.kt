@@ -18,7 +18,7 @@ class HomeViewModel(): ViewModel() {
 
     fun getRandomMeal(){
         //retrofit sin usar mvvm
-        RetrofitInstance.api.getRandomMeal().enqueue(object : Callback<MealList> {
+        RetrofitInstance.api.getRandomMeal().enqueue(object :Callback<MealList>{
             override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
                 if(response.body() !=null){
                     val randommeal: Meal = response.body()!!.meals[0]
