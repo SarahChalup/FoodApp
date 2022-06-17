@@ -5,12 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.bumptech.glide.Glide
 import com.example.foodapp.activities.MealActivity
 import com.example.foodapp.databinding.FragmentHomeBinding
+import com.example.foodapp.pojo.CategoryMeals
 import com.example.foodapp.pojo.Meal
 import com.example.foodapp.viewModel.HomeViewModel
 
@@ -46,9 +51,27 @@ companion object{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        preparePopularItemRecyclerView()
+
         homeMvvm.getRandomMeal()
         observeRandomMeal()
         onRandomMealClick()
+
+        homeMvvm.getPopularItems()
+        observePpularItemLiveData()
+    }
+
+    private fun preparePopularItemRecyclerView() {
+        binding.rvPopularItem.apply {
+            LayoutManager = LinearLayout(activity, LinearLayoutManager.HORIZONTAL, false)
+        }
+    }
+
+    private fun observePpularItemLiveData() {
+        homeMvvm.observePopularItemLiveData().observe(viewLifecycleOwner)
+        { mealList ->
+
+        }
     }
 
     private fun onRandomMealClick() {
