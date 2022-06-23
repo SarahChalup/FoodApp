@@ -17,7 +17,8 @@
             android:layout_height="match_parent"
             app:contentScrim="@color/purple_200"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            app:title="">
+            app:title=""
+            app:expandedTitleTextColor="@color/white">
             <ImageView
                 android:id="@+id/img_meal_detail"
                 android:layout_width="match_parent"
