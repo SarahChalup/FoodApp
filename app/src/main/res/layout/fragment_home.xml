@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:fontFamily="@font/myfont"
-        android:text="Whan a  popular meal"
+        android:text="Do you want a popular meal?"
         android:textColor="@color/black"
         android:textSize="@dimen/_17sdp"
         android:textStyle="bold"

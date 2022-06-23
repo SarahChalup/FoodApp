@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.bumptech.glide.Glide
 import com.example.foodapp.activities.MealActivity
+import com.example.foodapp.adapters.MostPopulrMealAdapter
 import com.example.foodapp.databinding.FragmentHomeBinding
 import com.example.foodapp.pojo.CategoryMeals
 import com.example.foodapp.pojo.Meal
@@ -24,6 +25,7 @@ class HomeFragment : Fragment() {
 private lateinit var binding:FragmentHomeBinding
 private lateinit var homeMvvm:HomeViewModel
 private lateinit var randomMeal:Meal
+private lateinit var popularItemAdapter: MostPopulrMealAdapter
 
 companion object{
     const val MEAL_ID = "com.example.foodapp.fragments.idMeal"
@@ -36,6 +38,7 @@ companion object{
         super.onCreate(savedInstanceState)
         homeMvvm = ViewModelProvider(this)[HomeViewModel::class.java]
 
+        popularItemAdapter = MostPopulrMealAdapter()
 
     }
 
@@ -63,14 +66,16 @@ companion object{
 
     private fun preparePopularItemRecyclerView() {
         binding.rvPopularItem.apply {
-            LayoutManager = LinearLayout(activity, LinearLayoutManager.HORIZONTAL, false)
+
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = popularItemAdapter
         }
     }
 
     private fun observePpularItemLiveData() {
         homeMvvm.observePopularItemLiveData().observe(viewLifecycleOwner)
         { mealList ->
-
+            popularItemAdapter.setMeals(mealsList = mealList as ArrayList<CategoryMeals> /* = java.util.ArrayList<com.example.foodapp.pojo.CategoryMeals> */)
         }
     }
 
