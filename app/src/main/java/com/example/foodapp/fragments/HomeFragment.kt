@@ -2,21 +2,19 @@ package com.example.foodapp.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.bumptech.glide.Glide
 import com.example.foodapp.activities.MealActivity
 import com.example.foodapp.adapters.MostPopulrMealAdapter
 import com.example.foodapp.databinding.FragmentHomeBinding
-import com.example.foodapp.pojo.CategoryMeals
+import com.example.foodapp.pojo.MealsByCategory
 import com.example.foodapp.pojo.Meal
 import com.example.foodapp.viewModel.HomeViewModel
 
@@ -63,6 +61,18 @@ companion object{
         homeMvvm.getPopularItems()
         observePpularItemLiveData()
         onPopularItemClick()
+
+        homeMvvm.getCategories()
+        observeCategoryLiveData()
+
+    }
+
+    private fun observeCategoryLiveData() {
+        homeMvvm.observeCategoriesLiveData().observe(viewLifecycleOwner) { categories ->
+            categories.forEach { category ->
+                Log.d("test", category.strCategory)
+            }
+        }
     }
 
     private fun onPopularItemClick() {
@@ -87,7 +97,7 @@ companion object{
     private fun observePpularItemLiveData() {
         homeMvvm.observePopularItemLiveData().observe(viewLifecycleOwner)
         { mealList ->
-            popularItemAdapter.setMeals(mealsList = mealList as ArrayList<CategoryMeals> /* = java.util.ArrayList<com.example.foodapp.pojo.CategoryMeals> */)
+            popularItemAdapter.setMeals(mealsList = mealList as ArrayList<MealsByCategory> /* = java.util.ArrayList<com.example.foodapp.pojo.CategoryMeals> */)
         }
     }
 

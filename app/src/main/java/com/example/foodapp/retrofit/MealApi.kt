@@ -1,6 +1,7 @@
 package com.example.foodapp.retrofit
 
 import com.example.foodapp.pojo.CategoryList
+import com.example.foodapp.pojo.MealsByCategoryList
 import com.example.foodapp.pojo.MealList
 import retrofit2.Call
 import retrofit2.http.GET
@@ -14,5 +15,8 @@ interface MealApi {
     fun getMealDeails(@Query("i")id:String) : Call<MealList>
 
     @GET ("filter.php?")
-    fun getPopularItems(@Query("c")categorName: String): Call<CategoryList>
+    fun getPopularItems(@Query("c")categorName: String): Call<MealsByCategoryList>
+
+    @GET ("categories.php")
+    fun getCategories (): Call <CategoryList>
 }
