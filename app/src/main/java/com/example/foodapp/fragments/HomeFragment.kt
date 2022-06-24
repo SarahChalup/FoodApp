@@ -9,11 +9,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewTreeLifecycleOwner
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.foodapp.activities.MealActivity
+import com.example.foodapp.adapters.CategoriesAdapter
 import com.example.foodapp.adapters.MostPopulrMealAdapter
 import com.example.foodapp.databinding.FragmentHomeBinding
+import com.example.foodapp.pojo.Category
 import com.example.foodapp.pojo.MealsByCategory
 import com.example.foodapp.pojo.Meal
 import com.example.foodapp.viewModel.HomeViewModel
@@ -24,6 +27,7 @@ private lateinit var binding:FragmentHomeBinding
 private lateinit var homeMvvm:HomeViewModel
 private lateinit var randomMeal:Meal
 private lateinit var popularItemAdapter: MostPopulrMealAdapter
+private lateinit var categoriesAdapter: CategoriesAdapter
 
 companion object{
     const val MEAL_ID = "com.example.foodapp.fragments.idMeal"
@@ -62,16 +66,31 @@ companion object{
         observePpularItemLiveData()
         onPopularItemClick()
 
+        prepareCategoriesRecylcerView()
         homeMvvm.getCategories()
         observeCategoryLiveData()
 
+
+
+    }
+
+    private fun prepareCategoriesRecylcerView() {
+        categoriesAdapter = CategoriesAdapter()
+        binding.recViewCategories.apply {
+            layoutManager = GridLayoutManager(
+                context,
+            3,
+                GridLayoutManager.VERTICAL,
+                false
+            )
+            adapter = categoriesAdapter
+        }
     }
 
     private fun observeCategoryLiveData() {
         homeMvvm.observeCategoriesLiveData().observe(viewLifecycleOwner) { categories ->
-            categories.forEach { category ->
-                Log.d("test", category.strCategory)
-            }
+               categoriesAdapter.setCategoriesList(categories as ArrayList<Category>)
+
         }
     }
 
