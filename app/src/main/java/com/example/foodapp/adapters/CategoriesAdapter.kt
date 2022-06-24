@@ -6,10 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodapp.databinding.CategoryItemBinding
 import com.example.foodapp.pojo.Category
+import com.example.foodapp.pojo.CategoryList
 
 class CategoriesAdapter() : RecyclerView.Adapter<CategoriesAdapter.CategoriesViewHolder>() {
 
     private var categoriesList = ArrayList<Category>()
+    var onItemClick : ((Category) -> Unit)? = null
 
     fun setCategoriesList(categorieslist: ArrayList<Category>){
         this.categoriesList = categorieslist
@@ -28,6 +30,9 @@ class CategoriesAdapter() : RecyclerView.Adapter<CategoriesAdapter.CategoriesVie
             .load(categoriesList[position].strCategoryThumb)
             .into(holder.binding.imgCategory)
         holder.binding.tvCategoryMeal.text = categoriesList[position].strCategory
+        holder.itemView.setOnClickListener {
+            onItemClick!!.invoke(categoriesList[position])
+        }
     }
 
     override fun getItemCount(): Int {

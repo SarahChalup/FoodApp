@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewTreeLifecycleOwner
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.foodapp.activities.CategoryMealsActivity
 import com.example.foodapp.activities.MealActivity
 import com.example.foodapp.adapters.CategoriesAdapter
 import com.example.foodapp.adapters.MostPopulrMealAdapter
@@ -29,11 +30,12 @@ private lateinit var randomMeal:Meal
 private lateinit var popularItemAdapter: MostPopulrMealAdapter
 private lateinit var categoriesAdapter: CategoriesAdapter
 
+
 companion object{
     const val MEAL_ID = "com.example.foodapp.fragments.idMeal"
     const val MEAL_NAME = "com.example.foodapp.fragments.nameMeal"
     const val MEAL_THUMB = "com.example.foodapp.fragments.thumbMeal"
-
+    const val CATEGORY_NAME = "com.example.foodapp.fragments.CategoryName"
 }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,9 +71,18 @@ companion object{
         prepareCategoriesRecylcerView()
         homeMvvm.getCategories()
         observeCategoryLiveData()
+        oncCategoryClick()
 
 
+    }
 
+    private fun oncCategoryClick() {
+        categoriesAdapter.onItemClick = {
+            category ->
+            val intent = Intent(activity, CategoryMealsActivity::class.java)
+            intent.putExtra(CATEGORY_NAME, category.strCategory)
+            startActivity(intent)
+        }
     }
 
     private fun prepareCategoriesRecylcerView() {
